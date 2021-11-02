@@ -1,0 +1,31 @@
+#container
+{
+    width: 100%;
+
+}
+#PieChart
+{
+    float:right;
+    border-style: double;
+    width: 50%;
+}
+#BarChart
+{
+    border-style: double;
+}
+#LineChart
+{
+    border-style: double;
+    width: 50%;
+    float: right;
+}
+#ColumnChart
+{
+    border-style: double;
+    width: 50%;
+}
+body
+{
+    background: linear-gradient(to right bottom,  #FFDBC6, #62DAFE) fixed;
+}
+

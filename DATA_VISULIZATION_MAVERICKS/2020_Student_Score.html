@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<head>
+ <meta charset="utf-8">
+ <meta http-equiv="X-UA-Compatible" content="IE=edge">
+ <meta name="viewport" content="width=device-width, initial-scale=1">
+ <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+ <!-- http://t.co/dKP3o1e -->
+ <meta name="HandheldFriendly" content="True">
+ <meta name="MobileOptimized" content="320">
+
+ <title>2020 Test visualisation</title>
+ <meta name="description" content="test">
+ <link rel="stylesheet" href="/CSS/Quarter.css">
+ <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+ <script src="/JS/jquery.csv.min.js"></script>
+ <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+
+<script type="text/javascript"> // load the visualisation API
+  google.load('visualization', '1', { packages: ['corechart', 'controls'] });
+</script>
+
+<script type="text/javascript">
+function drawVisualization() {
+   $.get("/CSV_DATA/2020_Student_Test_result.csv", function(csvString) {
+      // transform the CSV string into a 2-dimensional array
+      var arrayData = $.csv.toArrays(csvString, {onParseValue: $.csv.hooks.castToScalar});
+
+      // this new DataTable object holds all the data
+      var data = new google.visualization.arrayToDataTable(arrayData);
+      // CAPACITY - En-route ATFM delay - YY - CHART
+      var Barchart = new google.visualization.ChartWrapper({
+         chartType: 'BarChart',
+         containerId: 'BarChart',
+         dataTable: data,
+         options:{
+            width: 1600, height: 1000,
+            title: 'Student Wise Test Data',
+            
+            titleTextStyle : {color: 'grey', fontSize: 20},
+            hAxis: {
+          title: 'Score',
+          minValue: 0,
+          titleTextStyle:{color:'Grey', fontSize:30},
+        },
+        vAxis: {
+          title: 'Student',
+          titleTextStyle:{color:'Grey', fontSize:30},
+          
+         },
+        }
+      });
+      
+ 
+      var Cloumnchart = new google.visualization.ChartWrapper({
+         chartType: 'ColumnChart',
+         containerId: 'ColumnChart',
+         dataTable: data,
+         options:{
+            width: 1600, height: 500,
+            
+
+            title: 'Student Wise Test Data',
+            titleTextStyle : {color: 'grey', fontSize: 20},
+            hAxis: {
+          title: 'Students',
+          minValue: 0,
+          titleTextStyle:{color:'Grey', fontSize:30},
+        },
+        vAxis: {
+          title: 'Scores',
+          titleTextStyle:{color:'Grey', fontSize:30},
+          
+         },
+         }
+      });
+      
+     
+      Barchart.draw();
+      Cloumnchart.draw();
+   });
+
+}
+google.setOnLoadCallback(drawVisualization)
+</script>
+</head>
+<body>
+    <container id=quarter_container">
+    <h3 align=center>2020 Student Test Result</Details> </h3>
+<div id="PieChart"> 
+    
+</div>
+<div id="BarChart"></div>
+<div id="LineChart"></div>
+<div id="ColumnChart"></div>
+</container>
+</body>
